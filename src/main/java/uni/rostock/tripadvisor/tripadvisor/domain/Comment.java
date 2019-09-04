@@ -10,13 +10,15 @@ public class Comment {
     @Column(name = "comment_id")
     private int id;
 
+    private String text;
+
     private LocalDate date;
 
-    public Comment(LocalDate date) {
-        this.date = date;
-    }
+    public Comment() {}
 
-    public Comment() {
+    public Comment(String text, LocalDate date) {
+        this.text = text;
+        this.date = date;
     }
 
     public int getId() {
@@ -25,6 +27,14 @@ public class Comment {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public LocalDate getDate() {

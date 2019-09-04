@@ -8,7 +8,7 @@ public class Trip {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column(name = "id")
+    @Column(name = "trip_id")
     private int id;
 
     @Column(name = "location_from")
@@ -51,13 +51,13 @@ public class Trip {
         this.from = from;
     }
 
-/*    public Location getTo() {
+    public Location getTo() {
         return to;
     }
 
     public void setTo(Location to) {
         this.to = to;
-    }*/
+    }
 
     public LocalDate getDate() {
         return date;

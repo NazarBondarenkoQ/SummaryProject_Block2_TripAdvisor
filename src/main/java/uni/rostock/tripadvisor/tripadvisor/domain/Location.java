@@ -1,10 +1,14 @@
 package uni.rostock.tripadvisor.tripadvisor.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Location {
 
     @Id
@@ -13,7 +17,7 @@ public class Location {
     private int id;
 
     @Column(name = "country")
-    @Enumerated(EnumType.STRING) // представление энама в базе данных
+    @Enumerated(EnumType.STRING)
     private Country country;
 
     @Column(name = "city")
@@ -23,10 +27,10 @@ public class Location {
     @JoinColumn(name = "user_fk_id")
     private User user;
 
-    @OneToOne(mappedBy = "to")
+    @OneToOne(mappedBy = "to", cascade = CascadeType.MERGE)
     private Trip trip;
 
-    @OneToMany(cascade = {CascadeType.PERSIST}, orphanRemoval = true)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
     @JoinTable(name = "location_comment",
             joinColumns = @JoinColumn(name = "location_fk_id"),
             inverseJoinColumns = @JoinColumn(name = "comment_fk_id"))

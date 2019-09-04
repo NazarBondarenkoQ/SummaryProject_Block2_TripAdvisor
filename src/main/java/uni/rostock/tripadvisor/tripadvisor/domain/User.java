@@ -21,8 +21,11 @@ public class User {
     @Column(nullable = false)
     private String login;
 
-    @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.MERGE}, orphanRemoval = true, mappedBy = "user")
-    private List<Location> locations = new ArrayList<>();
+    @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
+    @JoinTable(name = "user_trip",
+            joinColumns = @JoinColumn(name = "user_fk_id"),
+            inverseJoinColumns = @JoinColumn(name = "trip_fk_id"))
+    private List<Trip> trips = new ArrayList<>();
 
     public User(String firstName, String lastName, String login) {
         this.firstName = firstName;
@@ -66,11 +69,11 @@ public class User {
         this.login = login;
     }
 
-    public List<Location> getLocations() {
-        return locations;
+    public List<Trip> getTrips() {
+        return trips;
     }
 
-    public void setLocations(List<Location> locations) {
-        this.locations = locations;
+    public void setTrips(List<Trip> trips) {
+        this.trips = trips;
     }
 }
