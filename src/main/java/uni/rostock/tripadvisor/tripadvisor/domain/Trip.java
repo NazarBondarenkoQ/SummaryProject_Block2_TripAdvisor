@@ -1,9 +1,12 @@
 package uni.rostock.tripadvisor.tripadvisor.domain;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Data
 public class Trip {
 
     @Id
@@ -18,6 +21,7 @@ public class Trip {
     @JoinColumn(name = "location_to_fk_id")
     private Location to;
 
+    @Column(name = "trip_date")
     private LocalDate date;
 
     private String name;
@@ -31,55 +35,5 @@ public class Trip {
         this.name = name;
         this.price = price;
     }
-
-    public Trip() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFrom() {
-        return from;
-    }
-
-    public void setFrom(String from) {
-        this.from = from;
-    }
-
-    public Location getTo() {
-        return to;
-    }
-
-    public void setTo(Location to) {
-        this.to = to;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
 }
+
