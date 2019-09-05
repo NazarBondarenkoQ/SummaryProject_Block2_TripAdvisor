@@ -1,10 +1,13 @@
 package uni.rostock.tripadvisor.tripadvisor.domain;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Data
 public class User {
 
     @Id
@@ -21,8 +24,11 @@ public class User {
     @Column(nullable = false)
     private String login;
 
-    @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.MERGE}, orphanRemoval = true, mappedBy = "user")
-    private List<Location> locations = new ArrayList<>();
+    @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
+    @JoinTable(name = "user_trip",
+            joinColumns = @JoinColumn(name = "user_fk_id"),
+            inverseJoinColumns = @JoinColumn(name = "trip_fk_id"))
+    private List<Trip> trips = new ArrayList<>();
 
     public User(String firstName, String lastName, String login) {
         this.firstName = firstName;
@@ -32,45 +38,5 @@ public class User {
 
     public User() {
 
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public List<Location> getLocations() {
-        return locations;
-    }
-
-    public void setLocations(List<Location> locations) {
-        this.locations = locations;
     }
 }
